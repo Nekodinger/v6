@@ -36,3 +36,19 @@ const DEFAULT_BACKEND_URL = ""; // <-- isi URL Apps Script Web App kamu di sini
    Ganti teks di bawah dengan kode pilihanmu, lalu commit & push.
    Tidak sensitif seperti API key - ini hanya kode kelas biasa. */
 const TEACHER_UNLOCK_CODE = "fisika-merdeka";
+
+/* ============================================================
+   MODE VALIDASI AHLI (sementara)
+   ------------------------------------------------------------
+   Untuk keperluan validasi platform ke ahli media/ahli materi,
+   menu navigasi topik bisa dibatasi supaya HANYA menampilkan
+   topik tertentu (topik lain disembunyikan total dari daftar,
+   bukan cuma dikunci/di-lock seperti gating biasa).
+
+   Isi array di bawah dengan "id" topik yang ingin TETAP terlihat
+   (lihat field id tiap topik di js/content.js, mis.
+   "magnetic-fields"). Kosongkan array ini ([]) untuk menampilkan
+   SEMUA topik lagi seperti biasa setelah validasi selesai.
+   Panel Guru (teacher.html) TIDAK terpengaruh oleh pembatasan
+   ini - guru tetap melihat semua 25 topik seperti biasa. */
+const VISIBLE_TOPIC_IDS = ["magnetic-fields"];

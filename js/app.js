@@ -850,16 +850,26 @@ function refreshKeyStatusUI() {
 }
 
 /* ---------------- Navigasi Topik ---------------- */
+function isTopicVisibleInNav(topic) {
+  // Mode validasi ahli (lihat js/config.js, VISIBLE_TOPIC_IDS): array
+  // kosong berarti tidak ada pembatasan, semua topik tampil seperti biasa.
+  if (typeof VISIBLE_TOPIC_IDS === "undefined" || !VISIBLE_TOPIC_IDS.length) return true;
+  return VISIBLE_TOPIC_IDS.includes(topic.id);
+}
+
 function renderNav() {
   const nav = document.getElementById("topic-nav");
   nav.innerHTML = "";
   ["AS", "A2"].forEach(level => {
+    const levelTopics = TOPICS.filter(tp => tp.level === level && isTopicVisibleInNav(tp));
+    if (!levelTopics.length) return; // sembunyikan header grup kalau tidak ada topik yang ditampilkan
+
     const groupTitle = document.createElement("div");
     groupTitle.className = "nav-group-title";
     groupTitle.textContent = level === "AS" ? t("nav.group.as") : t("nav.group.a2");
     nav.appendChild(groupTitle);
 
-    TOPICS.filter(tp => tp.level === level).forEach(topic => {
+    levelTopics.forEach(topic => {
       const btn = document.createElement("button");
       const blocked = isInClassSession() && topic.id !== classSession.topicId;
       const isSessionFocus = isInClassSession() && topic.id === classSession.topicId;
